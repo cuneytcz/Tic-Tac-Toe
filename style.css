@@ -1,0 +1,170 @@
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
+:root {
+   --cell-size: 100px;
+   --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+   margin: 0;
+   padding: 0;
+}
+
+.board {
+   width: 100vw;
+   height: 100vh;
+   display: grid;
+   grid-template-columns: repeat(3, auto);
+   justify-content: center;
+   align-content: center;
+   justify-items: center;
+   align-items: center;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+   content: "";
+   width: calc(var(--mark-size) * 0.1);
+   height: var(--mark-size);
+   background-color: lightgray;
+   position: absolute;
+}
+
+.board.x .cell:not(.x):not(.o)::before {
+   transform: rotate(45deg);
+}
+.board.x .cell:not(.x):not(.o)::after {
+   transform: rotate(-45deg);
+}
+
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+   content: "";
+   width: calc(var(--mark-size) * 0.1);
+   height: var(--mark-size);
+   background-color: #000;
+   position: absolute;
+}
+
+.board.o .cell:not(.x):not(.o):hover::before {
+   content: "";
+   width: calc(var(--mark-size) * 0.9);
+   height: calc(var(--mark-size) * 0.9);
+   background-color: lightgray;
+   position: absolute;
+   border-radius: 100%;
+}
+.board.o .cell:not(.x):not(.o):hover::after {
+   content: "";
+   width: calc(var(--mark-size) * 0.7);
+   height: calc(var(--mark-size) * 0.7);
+   background-color: white;
+   position: absolute;
+   border-radius: 100%;
+}
+
+.cell {
+   width: var(--cell-size);
+   height: var(--cell-size);
+   border-width: 2px;
+   border-style: solid;
+   border-color: #000;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+}
+
+.cell.x,
+.cell.o {
+   cursor: not-allowed;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+   border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+   border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+   border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:last-child {
+   border-bottom: none;
+}
+
+.cell.x::before,
+.cell.x::after {
+   content: "";
+   width: calc(var(--mark-size) * 0.1);
+   height: var(--mark-size);
+   background-color: #000;
+   position: absolute;
+}
+
+.cell.x::before {
+   transform: rotate(45deg);
+}
+.cell.x::after {
+   transform: rotate(-45deg);
+}
+
+.cell.o::before {
+   content: "";
+   width: calc(var(--mark-size) * 0.9);
+   height: calc(var(--mark-size) * 0.9);
+   background-color: #000;
+   position: absolute;
+   border-radius: 100%;
+}
+.cell.o::after {
+   content: "";
+   width: calc(var(--mark-size) * 0.7);
+   height: calc(var(--mark-size) * 0.7);
+   background-color: white;
+   position: absolute;
+   border-radius: 100%;
+}
+
+.message {
+   position: fixed;
+   inset: 0;
+   background-color: rgba(0, 0, 0, 0.9);
+   display: none;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   color: white;
+   font-size: 5rem;
+   transition: 0.3s ease-in;
+}
+
+.message.show {
+   display: flex;
+}
+
+.message .restart {
+   color: black;
+   font-size: 3rem;
+   background-color: white;
+   border: 1px solid black;
+   padding: 6px 10px;
+   cursor: pointer;
+}
+
+.message .restart:hover {
+   background-color: transparent;
+   border-color: white;
+   color: white;
+}
